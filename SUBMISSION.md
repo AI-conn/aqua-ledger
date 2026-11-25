@@ -85,9 +85,9 @@ screen-record at 30 fps, no voiceover required if captions are burned in.
 
 ## Demo links
 
-- Live demo: `[DEPLOY_URL]`
-- Source code: `[GITHUB_URL]`
-- Video: `[VIDEO_URL]`
+- Live demo: `[DEPLOY_URL]` — GitHub Pages can serve this static folder directly from the repo
+- Source code: `https://github.com/AI-conn/aqua-ledger` (public, pushed 2026-11-25)
+- Video: `[VIDEO_URL]` — script at lines below; not yet recorded
 
 ## Team members
 
