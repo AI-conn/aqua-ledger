@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AquaLedger — personal water-use tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-head">
+    <div class="wrap head-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">◈</span>
+        <div>
+          <h1>AquaLedger</h1>
+          <p class="tagline">See your water use. Change one habit.</p>
+        </div>
+      </div>
+      <button id="theme-toggle" class="ghost" type="button" aria-pressed="false">Dark mode</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="intro" aria-labelledby="intro-title">
+      <h2 id="intro-title">A small tool for SDG 6</h2>
+      <p>
+        AquaLedger is a free, offline-first, single-page tracker for personal water use.
+        Log litres by category, see a 7-day trend, and track a daily target you choose yourself.
+        No account, no server, no tracking — your data stays in this browser.
+      </p>
+      <p class="note">
+        The default target (100 L/day) is an <strong>editable planning number</strong>, not an
+        official standard. Set your own based on your context.
+      </p>
+    </section>
+
+    <section class="grid" aria-label="Tracker">
+      <div class="card entry-card">
+        <h2>Log water use</h2>
+        <form id="entry-form" novalidate>
+          <div class="field">
+            <label for="entry-date">Date</label>
+            <input type="date" id="entry-date" name="date" required>
+          </div>
+          <fieldset class="categories">
+            <legend>Litres by category</legend>
+            <div class="cat-grid" id="cat-grid"></div>
+          </fieldset>
+          <div class="field">
+            <label for="entry-total">Total (litres)</label>
+            <input type="number" id="entry-total" name="total" min="0" max="10000" step="0.1" inputmode="decimal" placeholder="Auto-summed from categories" required>
+            <p class="hint" id="total-hint">Edit the categories above, or enter a total directly.</p>
+          </div>
+          <button type="submit" class="primary">Save entry</button>
+          <button type="button" id="clear-form" class="ghost">Clear</button>
+        </form>
+        <p class="status" id="form-status" role="status" aria-live="polite"></p>
+      </div>
+
+      <div class="card">
+        <h2>Today &amp; goal</h2>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-label">Today's total</span>
+            <strong id="stat-today" class="stat-value">0 <small>L</small></strong>
+          </div>
+          <div class="stat">
+            <span class="stat-label">7-day average</span>
+            <strong id="stat-avg" class="stat-value">0 <small>L</small></strong>
+          </div>
+        </div>
+        <div class="field">
+          <label for="target">Daily target (litres)</label>
+          <input type="number" id="target" min="1" max="10000" step="1" value="100">
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>Target progress</span><span id="progress-pct">0%</span></div>
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+        </div>
+        <p class="note" id="goal-note">Log an entry to see progress.</p>
+      </div>
+
+      <div class="card wide">
+        <h2>Last 7 days</h2>
+        <div id="chart" class="chart" role="img" aria-label="Bar chart of water use over the last seven days"></div>
+        <p class="hint">Red bars exceed your daily target. Hover a bar for its exact date and value.</p>
+      </div>
+
+      <div class="card wide">
+        <h2>Entries</h2>
+        <div class="table-wrap">
+          <table id="entries-table">
+            <thead>
+              <tr><th scope="col">Date</th><th scope="col">Categories</th><th scope="col">Total (L)</th><th scope="col"><span class="sr-only">Actions</span></th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="hint" id="empty-note">No entries yet. Add one above.</p>
+        <div class="toolbar">
+          <button type="button" id="export" class="ghost">Export JSON</button>
+          <button type="button" id="import-toggle" class="ghost">Import JSON</button>
+          <button type="button" id="seed" class="ghost">Load sample week</button>
+        </div>
+        <div id="import-panel" class="import-panel" hidden>
+          <label for="import-text">Paste previously exported JSON</label>
+          <textarea id="import-text" rows="5" spellcheck="false"></textarea>
+          <button type="button" id="import-run" class="primary">Import</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        Built as a small open-source demo for hackathons focused on social good and the
+        UN Sustainable Development Goals. Licensed MIT. No data leaves your device.
+      </p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
